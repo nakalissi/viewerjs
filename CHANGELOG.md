@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0-beta.1.1 (Jan 15, 2018)
+
+- Add a new option: `toolbarPosition`.
+
 ## 1.0.0-beta.1 (Dec 23, 2017)
 
 - Add a new option: `backdrop`.

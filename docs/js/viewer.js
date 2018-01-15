@@ -1,11 +1,11 @@
 /*!
- * Viewer.js v1.0.0-beta.1
+ * Viewer.js v1.0.0-beta.1.1
  * https://github.com/fengyuanchen/viewerjs
  *
- * Copyright (c) 2015-2017 Chen Fengyuan
+ * Copyright (c) 2015-2018 Chen Fengyuan
  * Released under the MIT license
  *
- * Date: 2017-12-23T04:31:53.438Z
+ * Date: 2018-01-15T04:57:11.203Z
  */
 
 (function (global, factory) {
@@ -29,6 +29,9 @@ var DEFAULTS = {
 
   // Show the toolbar
   toolbar: true,
+
+  // Sets the toolbar position [ bottom | left | right ]
+  toolbarPosition: 'bottom',
 
   // Show the tooltip with image ratio (percentage) when zoom in or zoom out
   tooltip: true,
@@ -99,7 +102,28 @@ var DEFAULTS = {
   viewed: null
 };
 
-var TEMPLATE = '<div class="viewer-container">' + '<div class="viewer-canvas"></div>' + '<div class="viewer-footer">' + '<div class="viewer-title"></div>' + '<div class="viewer-toolbar"></div>' + '<div class="viewer-navbar">' + '<ul class="viewer-list"></ul>' + '</div>' + '</div>' + '<div class="viewer-tooltip"></div>' + '<div role="button" class="viewer-button" data-action="mix"></div>' + '<div class="viewer-player"></div>' + '</div>';
+function TEMPLATE (options) {
+  var toolbarPosition = options.toolbarPosition;
+
+  var toolbarPositionClass = 'viewer-toolbar-' + toolbarPosition;
+  var template = '';
+
+  template = '<div class="viewer-container">' + '<div class="viewer-canvas"></div>';
+
+  if (toolbarPosition === 'left' || toolbarPosition === 'right') {
+    template += '<div class="viewer-toolbar ' + toolbarPositionClass + '"></div>';
+  }
+
+  template += '<div class="viewer-footer">' + '<div class="viewer-title"></div>';
+
+  if (toolbarPosition === 'bottom') {
+    template += '<div class="viewer-toolbar"></div>';
+  }
+
+  template += '<div class="viewer-navbar">' + '<ul class="viewer-list"></ul>' + '</div>' + '</div>' + '<div class="viewer-tooltip"></div>' + '<div role="button" class="viewer-button" data-action="mix"></div>' + '<div class="viewer-player"></div>' + '</div>';
+
+  return template;
+}
 
 var WINDOW = typeof window !== 'undefined' ? window : {};
 var NAMESPACE = 'viewer';
@@ -2603,7 +2627,7 @@ var Viewer = function () {
       var parent = element.parentNode;
       var template = document.createElement('div');
 
-      template.innerHTML = TEMPLATE;
+      template.innerHTML = TEMPLATE(options);
 
       var viewer = template.querySelector('.' + NAMESPACE + '-container');
       var title = viewer.querySelector('.' + NAMESPACE + '-title');
