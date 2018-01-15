@@ -6,7 +6,7 @@
   "module": "dist/viewer.esm.js",
   "browser": "dist/viewer.js",
   "style": "dist/viewer.css",
-  "repository": "fengyuanchen/viewerjs",
+  "repository": "jbbn/viewerjs",
   "homepage": "https://fengyuanchen.github.io/viewerjs",
   "license": "MIT",
   "author": {
