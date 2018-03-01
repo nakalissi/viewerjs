@@ -1,12 +1,12 @@
 {
-  "name": "viewerjs",
+  "name": "@tivit/viewerjs",
   "description": "JavaScript image viewer.",
   "version": "1.0.0-beta.1.1",
   "main": "dist/viewer.common.js",
   "module": "dist/viewer.esm.js",
   "browser": "dist/viewer.js",
   "style": "dist/viewer.css",
-  "repository": "jbbn/viewerjs",
+  "repository": "@tivit/viewerjs",
   "homepage": "https://fengyuanchen.github.io/viewerjs",
   "license": "MIT",
   "author": {
