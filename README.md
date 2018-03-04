@@ -73,7 +73,7 @@ Initialize with `Viewer` constructor:
 ```html
 <!-- a block container is required -->
 <div>
-  <img id="image" src="picture.jpg" alt="Picture">
+  <img id="image" src="picture.jpg" alt="Picture" title="File name">
 </div>
 
 <div>
@@ -154,6 +154,7 @@ Specify the visibility of the navbar.
 Specify the visibility of the title (the current image's name and dimensions).
 
 > The name comes from the `alt` attribute of an image element or the image name parsed from URL.
+> The file name could also be set in title img attribute
 
 ### toolbar
 

@@ -293,6 +293,7 @@ function isFunction(value) {
  * @returns {*} The original data.
  */
 function each(data, callback) {
+
   if (data && isFunction(callback)) {
     if (Array.isArray(data) || isNumber(data.length) /* array-like */) {
         var length = data.length;
@@ -503,12 +504,13 @@ function hyphenate(value) {
  * @returns {string} The data value.
  */
 function getData(element, name) {
+  
   if (isObject(element[name])) {
     return element[name];
   } else if (element.dataset) {
     return element.dataset[name];
   }
-
+  
   return element.getAttribute('data-' + hyphenate(name));
 }
 
@@ -749,6 +751,7 @@ var IS_SAFARI_OR_UIWEBVIEW = navigator && /(Macintosh|iPhone|iPod|iPad).*AppleWe
  * @param {Function} callback - The callback function.
  */
 function getImageNaturalSizes(image, callback) {
+  
   // Modern browsers (except Safari)
   if (image.naturalWidth && !IS_SAFARI_OR_UIWEBVIEW) {
     callback(image.naturalWidth, image.naturalHeight);
@@ -888,6 +891,7 @@ var render = {
     };
   },
   initViewer: function initViewer() {
+
     var options = this.options,
         parent = this.parent;
 
@@ -907,6 +911,7 @@ var render = {
     }
 
     this.viewerData = extend({}, viewerData);
+    
   },
   renderViewer: function renderViewer() {
     if (this.options.inline && !this.fulled) {
@@ -914,8 +919,9 @@ var render = {
     }
   },
   initList: function initList() {
-    var _this = this;
 
+    var _this = this;
+    
     var element = this.element,
         options = this.options,
         list = this.list;
@@ -923,11 +929,11 @@ var render = {
     var items = [];
 
     each(this.images, function (image, i) {
-      var src = image.src;
 
+      var src = image.src;
+      var title = image.title || '';
       var alt = image.alt || getImageNameFromURL(src);
       var url = options.url;
-
 
       if (isString(url)) {
         url = image.getAttribute(url);
@@ -936,7 +942,7 @@ var render = {
       }
 
       if (src || url) {
-        items.push('<li>' + '<img' + (' src="' + (src || url) + '"') + ' role="button"' + ' data-action="view"' + (' data-index="' + i + '"') + (' data-original-url="' + (url || src) + '"') + (' alt="' + alt + '"') + '>' + '</li>');
+        items.push('<li>' + '<img' + (' src="' + (src || url) + '"') + ' role="button"' + ' data-action="view"' + (' data-index="' + i + '"') + (' data-original-url="' + (url || src) + '"') + (' alt="' + alt + '"') + ' title="' + title + '">' + '</li>');
       }
     });
 
@@ -978,6 +984,7 @@ var render = {
     });
   },
   initImage: function initImage(callback) {
+
     var _this2 = this;
 
     var options = this.options,
@@ -1237,6 +1244,7 @@ var handlers = {
     });
   },
   loadImage: function loadImage(e) {
+    
     var image = e.target;
     var parent = image.parentNode;
     var parentWidth = parent.offsetWidth || 30;
@@ -1456,6 +1464,7 @@ var handlers = {
     }
   },
   start: function start(_ref2) {
+    
     var target = _ref2.target;
 
     if (target.tagName.toLowerCase() === 'img' && this.images.indexOf(target) !== -1) {
@@ -1608,11 +1617,10 @@ var methods = {
    */
   view: function view(index) {
     var _this3 = this;
-
+ 
     var element = this.element,
         title = this.title,
         canvas = this.canvas;
-
 
     index = Number(index) || 0;
 
@@ -1623,13 +1631,14 @@ var methods = {
     var item = this.items[index];
     var img = item.querySelector('img');
     var url = getData(img, 'originalUrl');
-    var alt = img.getAttribute('alt');
+    var titleImg = img.getAttribute('title');
+    var alt = (titleImg) ? titleImg : img.getAttribute('alt');
     var image = document.createElement('img');
 
     image.src = url;
     image.alt = alt;
 
-    if (dispatchEvent(element, EVENT_VIEW, {
+    if (dispatchEvent(element, EVENT_VIEW, {  
       originalImage: this.images[index],
       index: index,
       image: image
@@ -1659,8 +1668,7 @@ var methods = {
     // Generate title after viewed
     addListener(element, EVENT_VIEWED, function () {
       var imageData = _this3.imageData;
-
-
+      title.setAttribute('title',img.getAttribute('alt'));
       title.textContent = alt + ' (' + imageData.naturalWidth + ' \xD7 ' + imageData.naturalHeight + ')';
     }, {
       once: true
@@ -1994,6 +2002,7 @@ var methods = {
     addClass(player, CLASS_SHOW);
 
     each(this.items, function (item, i) {
+    
       var img = item.querySelector('img');
       var image = document.createElement('img');
 
@@ -2482,7 +2491,6 @@ var others = {
     var imageData = this.imageData,
         viewerData = this.viewerData;
 
-
     return this.length > 1 && imageData.left >= 0 && imageData.top >= 0 && imageData.width <= viewerData.width && imageData.height <= viewerData.height;
   }
 };
@@ -2532,7 +2540,7 @@ var Viewer = function () {
 
       var element = this.element,
           options = this.options;
-
+      
 
       if (getData(element, NAMESPACE)) {
         return;
@@ -2544,6 +2552,7 @@ var Viewer = function () {
       var images = [];
 
       each(isImg ? [element] : element.querySelectorAll('img'), function (image) {
+        
         if (options.filter) {
           if (options.filter(image)) {
             images.push(image);
@@ -2552,9 +2561,8 @@ var Viewer = function () {
           images.push(image);
         }
       });
-
+      
       var length = images.length;
-
 
       if (!length) {
         return;

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0-beta.1.1 (March 4, 2018)
+
+- Add image title on the image viewer
+
 ## 1.0.0-beta.1.1 (Jan 15, 2018)
 
 - Add a new option: `toolbarPosition`.
