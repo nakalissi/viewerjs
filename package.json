@@ -1,5 +1,5 @@
 {
-  "name": "@tivit/viewerjs",
+  "name": "viewerjs",
   "description": "JavaScript image viewer.",
   "version": "1.0.1",
   "main": "dist/viewer.common.js",
@@ -11,7 +11,7 @@
   "homepage": "https://fengyuanchen.github.io/viewerjs",
   "license": "MIT",
   "author": {
-    "name": "Daniel Calissi Nakatate",
+    "name": "Chen Fengyuan",
     "url": "http://chenfengyuan.com"
   },
   "files": [
