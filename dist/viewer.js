@@ -1669,7 +1669,7 @@ var methods = {
     addListener(element, EVENT_VIEWED, function () {
       var imageData = _this3.imageData;
       title.setAttribute('title',img.getAttribute('alt'));
-      title.textContent = alt;
+      title.textContent = alt ;
     }, {
       once: true
     });
