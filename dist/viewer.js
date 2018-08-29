@@ -934,6 +934,7 @@ var render = {
       var title = image.title || '';
       var alt = image.alt || getImageNameFromURL(src);
       var url = options.url;
+      var id = image.id || i;
 
       if (isString(url)) {
         url = image.getAttribute(url);
@@ -942,7 +943,7 @@ var render = {
       }
 
       if (src || url) {
-        items.push('<li>' + '<img' + (' src="' + (src || url) + '"') + ' role="button"' + ' data-action="view"' + (' data-index="' + i + '"') + (' data-original-url="' + (url || src) + '"') + (' alt="' + alt + '"') + ' title="' + title + '">' + '</li>');
+        items.push('<li>' + '<img' + (' src="' + (src || url) + '"') + ' role="button"' + ' data-action="view"' + (' data-index="' + id + '"') + (' data-original-url="' + (url || src) + '"') + (' alt="' + alt + '"') + ' title="' + title + '">' + '</li>');
       }
     });
 
